@@ -14,9 +14,8 @@ import qualified Data.ByteString.Lazy          as BL
 import qualified Data.ByteString.Lazy.Internal as BLI
 import qualified Data.ByteString.Unsafe        as BU
 
-{- stolen from Data.Random.Internal.Words
+-- stolen from Data.Random.Internal.Words
 
-{-# INLINE buildWord32 #-}
 buildWord32 :: Word8 -> Word8 -> Word8 -> Word8 -> Word32
 buildWord32 b0 b1 b2 b3 = unsafePerformIO . allocaBytes 4 $ \p -> do
   pokeByteOff p 0 b0
@@ -24,7 +23,7 @@ buildWord32 b0 b1 b2 b3 = unsafePerformIO . allocaBytes 4 $ \p -> do
   pokeByteOff p 2 b2
   pokeByteOff p 3 b3
   peek (castPtr p)
--}
+{-# INLINE buildWord32 #-}
 
 buildWord32' :: Word16 -> Word16 -> Word32
 buildWord32' w0 w1 = unsafePerformIO . allocaBytes 4 $ \p -> do
