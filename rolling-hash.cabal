@@ -1,0 +1,32 @@
+Name:                rolling-hash
+Version:             0.1
+
+Synopsis:            Rolling hash algorithm, inspired by rsync
+Description:         Rolling hash algorithm, inspired by rsync
+
+License:             BSD3
+License-file:        LICENSE
+Author:              Nils Schweinsberg <mail@nils.cc>
+Maintainer:          mail@nils.cc
+-- Copyright:           
+
+Category:            Cryptography
+
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+-- Extra-source-files:  
+
+Library
+
+  HS-source-dirs:    src
+  GHC-options:       -O3
+
+  Build-depends:       
+    base == 4.*, bytestring >= 0.10
+
+  Exposed-modules:
+    Crypto.RollingHash
+    Crypto.RollingHash.Pure
+    Crypto.RollingHash.Internal
+  Other-modules:
