@@ -5,7 +5,7 @@ module Crypto.RollingHash.Pure
   ( -- * Types
     R, mkR, Rolling (emptyR, isEmptyR)
     -- * Rolling
-  , roll, rollN, rollBlock
+  , roll, rollN, rollBlock, rollBlockWithN
     -- * Hashing
   , hashRInt, hashR32, hashR16
   ) where
@@ -73,6 +73,10 @@ rollBlock r = r
   l = var_l r
   a_0 = dropR (fromIntegral l) (dat_0 r)
   a_l = dropR (fromIntegral l) (dat_l r)
+
+-- | Roll to the next block with the specified block length
+rollBlockWithN :: Rolling a => R a -> R a
+rollBlockWithN r = rollN (var_l r) r
 
 {-# SPECIALIZE rollBlock :: R [Word8]       -> R [Word8]       #-}
 {-# SPECIALIZE rollBlock :: R BS.ByteString -> R BS.ByteString #-}
