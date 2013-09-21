@@ -22,11 +22,8 @@ roll :: Rolling a => R a -> R a
 roll !r =
   case splitR (dat_0 r) of { (h_0,t_0) ->
   case splitR (dat_l r) of { (h_l,t_l) ->
-   r { dat_0 = t_0
-     , dat_l = t_l
-
-       -- a_1 = a_0 - x_0 + x_{l+1}
-     , hsh_a = hsh_a r - fromIntegral h_0 + fromIntegral h_l
+   r { -- a_1 = a_0 - x_0 + x_{l+1}
+       hsh_a = hsh_a r - fromIntegral h_0 + fromIntegral h_l
 
        -- b_1 = b_0 - (l+1) * x_0 + a_1
        --     = b_0 - (l+1) * x_0 + a_0 - x_0 + x_{l+1}
@@ -44,6 +41,8 @@ roll !r =
                    {-# INLINE hl #-}
                    {-# INLINE i #-}
                 in fromIntegral i
+     , dat_0 = t_0
+     , dat_l = t_l
      }
   }}
 

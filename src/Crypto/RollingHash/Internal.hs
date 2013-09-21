@@ -33,11 +33,11 @@ buildWord32' w0 w1 = unsafePerformIO . allocaBytes 4 $ \p -> do
 {-# INLINE buildWord32' #-}
 
 data R a = R
-  { dat_0 :: !a
+  { hsh_a :: {-# UNPACK #-} !Word16
+  , hsh_b :: {-# UNPACK #-} !Word16
+  , dat_0 :: !a
   , dat_l :: !a                         -- ^ list 'dat_0' at offset l
   , var_l :: {-# UNPACK #-} !Int        -- ^ block size
-  , hsh_a :: {-# UNPACK #-} !Word16
-  , hsh_b :: {-# UNPACK #-} !Word16
   }
   deriving Show
 
@@ -48,7 +48,7 @@ class Rolling a where
   dropR    :: Int -> a -> a
 
 instance Rolling [Word8] where
-  emptyR = R [] [] 0 0 0
+  emptyR = R 0 0 [] [] 0
   {-# INLINE emptyR #-}
 
   isEmptyR r = null (dat_0 r) && null (dat_l r)
@@ -62,7 +62,7 @@ instance Rolling [Word8] where
   {-# INLINE dropR #-}
 
 instance Rolling BL.ByteString where
-  emptyR = R BL.empty BL.empty 0 0 0
+  emptyR = R 0 0 BL.empty BL.empty 0
   {-# INLINE emptyR #-}
 
   isEmptyR r = BL.null (dat_0 r) && BL.null (dat_l r)
@@ -83,7 +83,7 @@ instance Rolling BL.ByteString where
   {-# INLINE dropR #-}
 
 instance Rolling BS.ByteString where
-  emptyR = R BS.empty BS.empty 0 0 0
+  emptyR = R 0 0 BS.empty BS.empty 0
   {-# INLINE emptyR #-}
 
   isEmptyR r = BS.null (dat_0 r ) && BS.null (dat_l r)
