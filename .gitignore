@@ -2,4 +2,5 @@
 *.swn
 *.swo
 *.swm
+*.hs_tags
 dist/
