@@ -5,7 +5,7 @@
 module Crypto.RollingHash.Internal where
 
 import Data.Word
-import Foreign          hiding (unsafePerformIO)
+import Foreign
 import System.IO.Unsafe        (unsafePerformIO)
 
 import qualified Data.ByteString               as BS
@@ -75,7 +75,7 @@ instance Rolling BL.ByteString where
       case c of
            BSI.PS _ _ 1 ->
              ( BU.unsafeHead c, cs)
-           _ -> 
+           _ ->
              ( BU.unsafeHead c, BLI.Chunk (BU.unsafeTail c) cs)
   {-# INLINE splitR #-}
 

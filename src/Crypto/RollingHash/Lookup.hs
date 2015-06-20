@@ -14,7 +14,7 @@ import Control.Monad
 import Data.Bits
 import Data.List
 import Data.Word
-import Foreign hiding (unsafePerformIO)
+import Foreign
 import System.IO.Unsafe
 
 type Array a = ForeignPtr a
@@ -50,7 +50,7 @@ fromListW32 l = unsafePerformIO $ do
   fw16_a  <- toForeignPtr $ newArray $ replicate (2^(16 :: Int)) 0
   fw16l_a <- toForeignPtr $ newArray $ replicate (2^(16 :: Int)) 0
 
-  forM_ (zip w32_l [0..]) $ \(w32,p) -> 
+  forM_ (zip w32_l [0..]) $ \(w32,p) ->
     withForeignPtr fw16_a $ \ w16_a -> do
     withForeignPtr fw16l_a $ \w16l_a -> do
       let w16  = takeFst16 w32
@@ -72,7 +72,7 @@ fromListW32 l = unsafePerformIO $ do
 
 {-# INLINABLE lookupW32 #-}
 lookupW32 :: Storable a => Word32 -> Word32Map a -> Maybe a
-lookupW32 w32 (Word32Map fw16_a fw16l_a fw32_a felem_a) = 
+lookupW32 w32 (Word32Map fw16_a fw16l_a fw32_a felem_a) =
   unsafePerformIO $
   withForeignPtr fw16_a $ \w16_a ->
   withForeignPtr fw16l_a $ \w16l_a -> do
