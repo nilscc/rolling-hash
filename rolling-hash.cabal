@@ -13,7 +13,7 @@ Maintainer:          mail@nils.cc
 Category:            Cryptography
 
 Build-type:          Simple
-Cabal-version:       >=1.2
+Cabal-version:       >= 1.8
 
 -- Extra-source-files:  
 
@@ -31,3 +31,15 @@ Library
     Crypto.RollingHash.Lookup
     Crypto.RollingHash.Internal
   Other-modules:
+
+Benchmark Main
+
+    Type:               exitcode-stdio-1.0
+    HS-source-dirs:     benchmark
+    Main-is:            Main.hs
+    GHC-options:        -O3
+    build-depends:      base == 4.*,
+                        bytestring >= 0.10,
+                        random,
+                        criterion,
+                        rolling-hash
